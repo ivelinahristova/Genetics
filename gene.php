@@ -9,6 +9,20 @@ class Gene
     protected $marks;
 
     /**
+     * @param $marks array
+     */
+    public function __construct($marks)
+    {
+
+        foreach($marks as $name => $dominationRate) {
+            $mark = new Mark();
+            $mark->setName($name);
+            $mark->getDominationRate($dominationRate);
+            $this->setMark($mark);
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getName()
@@ -40,4 +54,16 @@ class Gene
         $this->marks = $marks;
     }
 
+    /**
+     * @param $mark Mark
+     */
+    public function setMark($mark)
+    {
+        $this->marks[$mark->getName()] = $mark;
+    }
+
+    public function getMark($name)
+    {
+        return $this->marks[$name];
+    }
 }

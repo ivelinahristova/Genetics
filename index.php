@@ -5,47 +5,31 @@ require_once('gene.php');
 require_once('person.php');
 require_once('population.php');
 
+
+$marks = [
+    'blue' => 0,
+    'green' => 1,
+    'hazel' => 2,
+    'brown' => 3
+];
+
 $genes = [];
-$gene = new Gene();
+$gene = new Gene($marks);
 $gene->setName('eyes');
-$marks = [];
-$mark = new Mark();
-$mark->setName('blue');
-$mark->getDominationRate(0);
-
-array_push($marks, $mark);
-
-$mark = new Mark();
-$mark->setName('green');
-$mark->getDominationRate(1);
-
-array_push($marks, $mark);
-
-$mark = new Mark();
-$mark->setName('hazel');
-$mark->getDominationRate(2);
-
-array_push($marks, $mark);
-
-$mark = new Mark();
-$mark->setName('brown');
-$mark->getDominationRate(3);
-
-array_push($marks, $mark);
-
-$gene->setMarks($marks);
 
 array_push($genes, $gene);
 
-$p1 = new Person([$gene->getName() => $marks[0]]);
-$p2 = new Person([$gene->getName() => $marks[1]]);
+$p1 = new Person();
+$p1->setGene($gene->getName(), $gene->getMark('blue'));
+$p2 = new Person();
+$p2->setGene($gene->getName(), $gene->getMark('green'));
 
-$target = new Person([$gene->getName() => $marks[1]]);
+$target = new Person();
+$target->setGene($gene->getName(), $gene->getMark('green'));
 
 $population = new Population();
 $population->setPersons([$p1, $p2]);
 $solution = $population->getFittest($target);
-var_dump($marks[1]);
 ?>
 <h1>Population</h1>
 <table>

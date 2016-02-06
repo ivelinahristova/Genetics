@@ -8,9 +8,8 @@ class Person
     protected $genes = [];
     protected $fitness;
 
-    public function __construct($genes)
+    public function __construct()
     {
-        $this->setGenes($genes);
     }
 
     /**
@@ -27,6 +26,15 @@ class Person
     public function setGenes($genes)
     {
         $this->genes = $genes;
+    }
+
+    /**
+     * @param $name
+     * @param $mark
+     */
+    public function setGene($name, $mark)
+    {
+        $this->genes[$name] = $mark;
     }
 
     /**
