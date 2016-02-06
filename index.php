@@ -1,3 +1,14 @@
+<html>
+<head>
+    <link href="styles/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="styles/css/style.css" rel="stylesheet"/>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="styles/js/bootstrap.min.js"></script>
+</head>
+<body>
+
 <?php
 
 require_once('gene.php');
@@ -9,7 +20,7 @@ require_once('population.php');
 require_once('algorithm.php');
 
 $fitValue = 2; //Solution fit - target is found
-$stopOnLevel = 2; //Stop algorithm if target is not found in this generation level
+$stopOnLevel = 4; //Stop algorithm if target is not found in this generation level
 
 $target = new Person();
 $target->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
@@ -35,33 +46,41 @@ $generationLevel = 1;
 
 $solution = $population->getFittest($target);
 
-while($solution->getFitness() != $fitValue && $generationLevel < $stopOnLevel) {
+?>
+
+<?php while($solution->getFitness() != $fitValue && $generationLevel < $stopOnLevel):?>
+    <?php
     $population = Algorithm::evolve($population, $target);
     $generationLevel++;
     $solution = $population->getFittest($target);
-}
+    ?>
+    <section>
+        <h1>Population <?php echo $generationLevel; ?></h1>
+        <table>
+            <tr>
+                <th>Person</th>
+                <th>Genes</th>
+                <th>Fitness Value</th>
+            </tr>
+            <?php foreach($population->getPersons() as $person): ?>
+                <?php /** @var $person Person */ ?>
+                <tr>
+                    <td>name</td>
+                    <td>
+                        <?php echo $person->htmlGenes(); ?>
+                    </td>
+                    <td><?php echo $person->getFitness(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </section>
+<?php endwhile; ?>
 
-$solution = $population->getFittest($target);
-?>
-<h1>Population</h1>
-<table>
-    <tr>
-        <th>Person</th>
-        <th>Genes</th>
-        <th>Fitness Value</th>
-    </tr>
-    <?php foreach($population->getPersons() as $person): ?>
-    <?php /** @var $person Person */ ?>
-        <tr>
-            <td>name</td>
-            <td>
-                <?php echo $person->htmlGenes(); ?>
-            </td>
-            <td><?php echo $person->getFitness(); ?></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
 
+<section class="target">
+<div>
+    <h2>Max Populations: <?php echo $stopOnLevel; ?></h2>
+</div>
 <h1>Target</h1>
 <table>
     <tr>
@@ -75,24 +94,26 @@ $solution = $population->getFittest($target);
         <td><?php echo $fitValue; ?></td>
     </tr>
 </table>
+</section>
+
+<section>
 
 <h1>Solution</h1>
 <table>
     <tr>
         <th>Genes</th>
         <th>Fitness Value</th>
+        <th>Generations Count</th>
     </tr>
     <tr>
         <td>
             <?php echo $solution->htmlGenes(); ?>
         </td>
         <td><?php echo $solution->getFitness(); ?></td>
+        <td><?php echo $generationLevel; ?></td>
     </tr>
 </table>
+</section>
 
-
-<?php
-var_dump($solution->getFitness($target));
-
-var_dump($generationLevel);
-?>
+</body>
+</html>
