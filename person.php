@@ -5,36 +5,12 @@
  */
 class Person
 {
-    protected $genes = [];
+    protected $eyesColor;
+    protected $hairColor;
     protected $fitness;
 
     public function __construct()
     {
-    }
-
-    /**
-     * @return array
-     */
-    public function getGenes()
-    {
-        return $this->genes;
-    }
-
-    /**
-     * @param array $genes
-     */
-    public function setGenes($genes)
-    {
-        $this->genes = $genes;
-    }
-
-    /**
-     * @param $name
-     * @param $mark
-     */
-    public function setGene($name, $mark)
-    {
-        $this->genes[$name] = $mark;
     }
 
     /**
@@ -54,12 +30,35 @@ class Person
     }
 
     /**
-     * @param $geneName string
+     * @return EyesColor
+     */
+    public function getEyesColor()
+    {
+        return $this->eyesColor;
+    }
+
+    /**
+     * @param EyesColor $eyesColor
+     */
+    public function setEyesColor($eyesColor)
+    {
+        $this->eyesColor = $eyesColor;
+    }
+
+    /**
      * @return mixed
      */
-    public function getMark($geneName)
+    public function getHairColor()
     {
-        return $this->genes[$geneName];
+        return $this->hairColor;
+    }
+
+    /**
+     * @param mixed $hairColor
+     */
+    public function setHairColor($hairColor)
+    {
+        $this->hairColor = $hairColor;
     }
 
     /**
@@ -69,14 +68,16 @@ class Person
      */
     public function calculateFitness($target)
     {
-        $genesCount = count($this->genes);
+        $genesCount = 0;
 
-        foreach($this->genes as $name=>$mark) {
-            if($mark == $target->getMark($name)) {
-                $genesCount--;
-            }
+        if($this->getEyesColor()->getMark() == $target->getEyesColor()->getMark()) {
+            $genesCount++;
+        }
+        if($this->getHairColor()->getMark() == $target->getHairColor()->getMark()) {
+            $genesCount++;
         }
 
+        $this->setFitness($genesCount);
         return $genesCount;
     }
 

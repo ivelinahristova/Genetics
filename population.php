@@ -34,7 +34,7 @@ class Population
         foreach($this->getPersons() as $person) {
             /** @var $person Person */
 
-            if($fittedPerson->calculateFitness($target) > $person->calculateFitness($target)) {
+            if($fittedPerson->calculateFitness($target) < $person->calculateFitness($target)) {
                 $fittedPerson = $person;
             }
         }
@@ -47,7 +47,12 @@ class Population
      */
     public function addPerson($person)
     {
-        array_push($this->persons, $person);
+        if($this->persons) {
+            array_push($this->persons, $person);
+
+        } else {
+            $this->persons = [$person];
+        }
     }
 
     /**
