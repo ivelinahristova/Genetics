@@ -48,40 +48,48 @@ $solution = $population->getFittest($target);
     <tr>
         <th>Person</th>
         <th>Genes</th>
+        <th>Fitness Value</th>
     </tr>
     <?php foreach($population->getPersons() as $person): ?>
-    <?php /** @var $person Person */ var_dump($person)?>
+    <?php /** @var $person Person */ ?>
         <tr>
             <td>name</td>
             <td>
-                <ul>
-                    <li>
-                        <?php echo sprintf('Eyes Color: %s', $person->getEyesColor()->getMark()); ?>
-                    </li>
-                    <li>
-                        <?php echo sprintf('Hair Color: %s', $person->getHairColor()->getMark()); ?>
-                    </li>
-            </ul>
+                <?php echo $person->htmlGenes(); ?>
             </td>
+            <td><?php echo $person->getFitness(); ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
 
 <h1>Target</h1>
-    <li>
-        <?php echo sprintf('Eyes Color: %s', $target->getEyesColor()->getMark()); ?>
-    </li>
-    <li>
-        <?php echo sprintf('Hair Color: %s', $target->getHairColor()->getMark()); ?>
-    </li>
+<table>
+    <tr>
+        <th>Desirable Genes</th>
+        <th>Desirable Fitness Value</th>
+    </tr>
+    <tr>
+        <td>
+            <?php echo $target->htmlGenes(); ?>
+        </td>
+        <td><?php echo $fitValue; ?></td>
+    </tr>
+</table>
 
 <h1>Solution</h1>
-    <li>
-        <?php echo sprintf('Eyes Color: %s', $solution->getEyesColor()->getMark()); ?>
-    </li>
-    <li>
-        <?php echo sprintf('Hair Color: %s', $solution->getHairColor()->getMark()); ?>
-    </li>
+<table>
+    <tr>
+        <th>Genes</th>
+        <th>Fitness Value</th>
+    </tr>
+    <tr>
+        <td>
+            <?php echo $solution->htmlGenes(); ?>
+        </td>
+        <td><?php echo $solution->getFitness(); ?></td>
+    </tr>
+</table>
+
 
 <?php
 var_dump($solution->getFitness($target));

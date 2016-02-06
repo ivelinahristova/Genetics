@@ -81,4 +81,14 @@ class Person
         return $genesCount;
     }
 
+    public function htmlGenes()
+    {
+        $html = '<ul>';
+        $html .= '<li>'.$this->getEyesColor()->getName().' - '.$this->getEyesColor()->getMark().'</li>';
+        $html .= '<li>'.$this->getHairColor()->getName().' - '.$this->getHairColor()->getMark().'</li>';
+        $html .= '</ul>';
+
+        return $html;
+    }
+
 }
