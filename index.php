@@ -21,6 +21,7 @@ require_once('person.php');
 require_once('population.php');
 require_once('algorithm.php');
 
+$timeStart = microtime(true);
 $fitValue = 3; //Solution fit - target is found
 $stopOnLevel = 4; //Stop algorithm if target is not found in this generation level
 
@@ -110,6 +111,7 @@ $solution = $population->getFittest($target);
         <th>Genes</th>
         <th>Fitness Value</th>
         <th>Generations Count</th>
+        <th>Working Time</th>
     </tr>
     <tr>
         <td>
@@ -117,6 +119,7 @@ $solution = $population->getFittest($target);
         </td>
         <td><?php echo $solution->getFitness(); ?></td>
         <td><?php echo $generationLevel; ?></td>
+        <td><?php echo microtime(true) - $timeStart; ?></td>
     </tr>
 </table>
 </section>
