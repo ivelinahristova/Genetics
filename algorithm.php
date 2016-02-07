@@ -2,7 +2,7 @@
 
 class Algorithm
 {
-    protected static $ELITISM = true;
+    protected static $ELITISM = false;
     protected static $SIZE = 5;
 
     /**
@@ -13,7 +13,9 @@ class Algorithm
     public static function evolve($population, $target)
     {
         $newPopulation = new Population();
-        $newPopulation->addPerson($population->getFittest($target));
+        if(self::$ELITISM) {
+            $newPopulation->addPerson($population->getFittest($target));
+        }
 
         $pool = Algorithm::selection($population, $target);
 //        var_dump('pool');
