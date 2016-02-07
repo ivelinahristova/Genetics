@@ -63,6 +63,7 @@ class Algorithm
         $child = new Person();
         $child->setEyesColor(Algorithm::getDominant($person1->getEyesColor(), $person2->getEyesColor()));
         $child->setHairColor(Algorithm::getDominant($person1->getHairColor(), $person2->getHairColor()));
+        $child->setSkinColor(new SkinColor(floatval(($person1->getSkinColor()->getValue() + $person2->getSkinColor()->getValue()) / 2.0)));
 
         return $child;
     }

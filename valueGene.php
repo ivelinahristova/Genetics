@@ -7,10 +7,9 @@ class ValueGene extends Gene
 {
     protected $value;
 
-
-    public function __construct()
+    public function __construct($value)
     {
-
+        $this->setValue($value);
     }
 
     /**

@@ -6,6 +6,12 @@ class HairColor extends MarkGene
     const MARK_BROWN = 'brown';
     const MARK_BLACK = 'black';
 
+    public function __construct($mark)
+    {
+        $this->setName('Hair Color');
+        parent::__construct($mark);
+    }
+
     public $marks = [
         self::MARK_BLONDE,
         self::MARK_BROWN,

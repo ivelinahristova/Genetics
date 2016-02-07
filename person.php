@@ -8,6 +8,7 @@ class Person
     protected $eyesColor;
     protected $hairColor;
     protected $fitness;
+    protected $skinColor; // Value [0.1, 1.0]
 
     public function __construct()
     {
@@ -62,7 +63,24 @@ class Person
     }
 
     /**
-     * The less the fitness rate is, the better
+     * @return SkinColor
+     */
+    public function getSkinColor()
+    {
+        return $this->skinColor;
+    }
+
+    /**
+     * @param mixed $skinColor
+     */
+    public function setSkinColor($skinColor)
+    {
+        $this->skinColor = $skinColor;
+
+    }
+
+    /**
+     * The more the fitness rate is, the better
      * @param $target Person
      * @return int
      */
@@ -77,8 +95,10 @@ class Person
             $genesCount++;
         }
 
-        $this->setFitness($genesCount);
-        return $genesCount;
+        $fitness = $genesCount + (1 - (abs($this->getSkinColor()->getValue() - $target->getSkinColor()->getValue())));
+
+        $this->setFitness($fitness);
+        return $fitness;
     }
 
     public function htmlGenes()
@@ -86,6 +106,7 @@ class Person
         $html = '<ul>';
         $html .= '<li>'.$this->getEyesColor()->getName().' - '.$this->getEyesColor()->getMark().'</li>';
         $html .= '<li>'.$this->getHairColor()->getName().' - '.$this->getHairColor()->getMark().'</li>';
+        $html .= '<li>'.$this->getSkinColor()->getName().' - '.$this->getSkinColor()->getValue().'</li>';
         $html .= '</ul>';
 
         return $html;

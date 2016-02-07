@@ -15,29 +15,35 @@ require_once('gene.php');
 require_once('markGene.php');
 require_once('EyesColor.php');
 require_once('HairColor.php');
+require_once('valueGene.php');
+require_once('SkinColor.php');
 require_once('person.php');
 require_once('population.php');
 require_once('algorithm.php');
 
-$fitValue = 2; //Solution fit - target is found
+$fitValue = 3; //Solution fit - target is found
 $stopOnLevel = 4; //Stop algorithm if target is not found in this generation level
 
 $target = new Person();
 $target->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
 $target->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+$target->setSkinColor(new SkinColor(0.6));
 
 $p1 = new Person();
 $p1->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
 $p1->setHairColor(new HairColor(HairColor::MARK_BROWN));
+$p1->setSkinColor(new SkinColor(0.3));
 
 $p2 = new Person();
+$p2->setSkinColor(new SkinColor(0.6));
+
 $p2->setEyesColor(new EyesColor(EyesColor::MARK_GREEN));
 $p2->setHairColor(new HairColor(HairColor::MARK_BLONDE));
 
 $p3 = new Person();
 $p3->setEyesColor(new EyesColor(EyesColor::MARK_HAZEL));
 $p3->setHairColor(new HairColor(HairColor::MARK_BLONDE));
-
+$p3->setSkinColor(new SkinColor(0.9));
 
 $population = new Population();
 $population->setPersons([$p1, $p2, $p3]);
@@ -45,7 +51,6 @@ $population->setPersons([$p1, $p2, $p3]);
 $generationLevel = 1;
 
 $solution = $population->getFittest($target);
-
 ?>
 
 <?php while($solution->getFitness() != $fitValue && $generationLevel < $stopOnLevel):?>
@@ -67,7 +72,8 @@ $solution = $population->getFittest($target);
                 <tr>
                     <td>name</td>
                     <td>
-                        <?php echo $person->htmlGenes(); ?>
+                        <?php echo $person->htmlGenes(); ;
+                        ?>
                     </td>
                     <td><?php echo $person->getFitness(); ?></td>
                 </tr>
