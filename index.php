@@ -27,7 +27,7 @@ $stopOnLevel = 4; //Stop algorithm if target is not found in this generation lev
 
 $target = new Person();
 $target->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
-$target->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+$target->setHairColor(new HairColor(HairColor::MARK_BROWN));
 $target->setSkinColor(new SkinColor(0.6));
 
 $p1 = new Person();
@@ -50,16 +50,38 @@ $population = new Population();
 $population->setPersons([$p1, $p2, $p3]);
 
 $generationLevel = 1;
+$solution = $population->getFittest($target);
+?>
 
+<section>
+    <h1>Initial Population</h1>
+    <table>
+        <tr>
+            <th>Person</th>
+            <th>Genes</th>
+            <th>Fitness Value</th>
+        </tr>
+        <?php foreach($population->getPersons() as $person): ?>
+            <?php /** @var $person Person */ ?>
+            <tr>
+                <td>name</td>
+                <td>
+                    <?php echo $person->htmlGenes(); ;
+                    ?>
+                </td>
+                <td><?php echo $person->getFitness(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</section>
+
+<?php
+$population = Algorithm::evolve($population, $target);
+$generationLevel++;
 $solution = $population->getFittest($target);
 ?>
 
 <?php while($solution->getFitness() != $fitValue && $generationLevel < $stopOnLevel):?>
-    <?php
-    $population = Algorithm::evolve($population, $target);
-    $generationLevel++;
-    $solution = $population->getFittest($target);
-    ?>
     <section>
         <h1>Population <?php echo $generationLevel; ?></h1>
         <table>
@@ -81,6 +103,11 @@ $solution = $population->getFittest($target);
             <?php endforeach; ?>
         </table>
     </section>
+    <?php
+    $population = Algorithm::evolve($population, $target);
+    $generationLevel++;
+    $solution = $population->getFittest($target);
+    ?>
 <?php endwhile; ?>
 
 
