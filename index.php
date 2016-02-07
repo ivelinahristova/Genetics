@@ -23,7 +23,7 @@ require_once('algorithm.php');
 
 $timeStart = microtime(true);
 $fitValue = 3; //Solution fit - target is found
-$stopOnLevel = 4; //Stop algorithm if target is not found in this generation level
+$stopOnLevel = 6; //Stop algorithm if target is not found in this generation level
 $personId = 1;
 $generationLevel = 0;
 
@@ -55,8 +55,22 @@ $p3->setSkinColor(new SkinColor(0.9));
 $p3->setId($generationLevel.'_'.$personId);
 $personId++;
 
+$p4 = new Person();
+$p4->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
+$p4->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+$p4->setSkinColor(new SkinColor(0.2));
+$p4->setId($generationLevel.'_'.$personId);
+$personId++;
+
+$p5 = new Person();
+$p5->setEyesColor(new EyesColor(EyesColor::MARK_BROWN));
+$p5->setHairColor(new HairColor(HairColor::MARK_BROWN));
+$p5->setSkinColor(new SkinColor(0.5));
+$p5->setId($generationLevel.'_'.$personId);
+$personId++;
+
 $population = new Population();
-$population->setPersons([$p1, $p2, $p3]);
+$population->setPersons([$p1, $p2, $p3, $p4, $p5]);
 
 $generationLevel++;
 $solution = $population->getFittest($target);
@@ -100,6 +114,7 @@ $solution = $population->getFittest($target);
                 <th>Genes</th>
                 <th>Fitness Value</th>
                 <th>Parents</th>
+                <th>Has Mutation</th>
             </tr>
             <?php foreach($population->getPersons() as $person): ?>
                 <?php /** @var $person Person */ ?>
@@ -117,6 +132,9 @@ $solution = $population->getFittest($target);
                     <td>
                         <a href="#<?php echo $person->getParents()[0]; ?>"><?php echo $person->getParents()[0]; ?></a>
                         <a href="#<?php echo $person->getParents()[1]; ?>"><?php echo $person->getParents()[1]; ?></a>
+                    </td>
+                    <td>
+                        <?php echo $person->getIsMutant() ? 'Yes' : 'No'; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

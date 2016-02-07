@@ -11,6 +11,7 @@ class Person
     protected $skinColor; // Value [0.1, 1.0]
     protected $parents;
     protected $id;
+    protected $isMutant;
 
     public function __construct()
     {
@@ -46,6 +47,22 @@ class Person
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsMutant()
+    {
+        return $this->isMutant;
+    }
+
+    /**
+     * @param mixed $isMutant
+     */
+    public function setIsMutant($isMutant)
+    {
+        $this->isMutant = $isMutant;
     }
 
     /**

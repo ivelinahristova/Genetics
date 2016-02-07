@@ -3,7 +3,7 @@
 class Algorithm
 {
     protected static $ELITISM = false;
-    protected static $SIZE = 5;
+    protected static $SIZE = 8;
 
     /**
      * @param $population Population
@@ -66,12 +66,25 @@ class Algorithm
     public static function crossover($person1, $person2)
     {
         $child = new Person();
-        $child->setEyesColor(Algorithm::getDominant($person1->getEyesColor(), $person2->getEyesColor()));
-        $child->setHairColor(Algorithm::getDominant($person1->getHairColor(), $person2->getHairColor()));
-        $child->setSkinColor(new SkinColor(floatval(($person1->getSkinColor()->getValue() + $person2->getSkinColor()->getValue()) / 2.0)));
+        if(Algorithm::hasMutation()) {
+            $child->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
+            $child->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+            $child->setSkinColor(new SkinColor(0));
+            $child->setIsMutant(true);
+        } else {
+            $child->setEyesColor(Algorithm::getDominant($person1->getEyesColor(), $person2->getEyesColor()));
+            $child->setHairColor(Algorithm::getDominant($person1->getHairColor(), $person2->getHairColor()));
+            $child->setSkinColor(new SkinColor(floatval(($person1->getSkinColor()->getValue() + $person2->getSkinColor()->getValue()) / 2.0)));
+        }
+
         $child->setParents([$person1->getId(), $person2->getId()]);
 
         return $child;
+    }
+
+    public static function hasMutation()
+    {
+        return rand(1, 100) == 1;
     }
 
     /**
