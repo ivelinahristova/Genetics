@@ -9,6 +9,8 @@ class Person
     protected $hairColor;
     protected $fitness;
     protected $skinColor; // Value [0.1, 1.0]
+    protected $parents;
+    protected $id;
 
     public function __construct()
     {
@@ -28,6 +30,22 @@ class Person
     public function setFitness($fitness)
     {
         $this->fitness = $fitness;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -77,6 +95,22 @@ class Person
     {
         $this->skinColor = $skinColor;
 
+    }
+
+    /**
+     * @return array
+     */
+    public function getParents()
+    {
+        return $this->parents;
+    }
+
+    /**
+     * @param array $parents
+     */
+    public function setParents($parents)
+    {
+        $this->parents = $parents;
     }
 
     /**

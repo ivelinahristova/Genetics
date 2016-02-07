@@ -10,8 +10,9 @@ class Algorithm
      * @param $target Person
      * @return Population
      */
-    public static function evolve($population, $target)
+    public static function evolve($population, $target, $depth)
     {
+        $id = 1;
         $newPopulation = new Population();
         if(self::$ELITISM) {
             $newPopulation->addPerson($population->getFittest($target));
@@ -24,6 +25,8 @@ class Algorithm
         for($i=0; $i<count($pool) - 1; $i++) {
             for($j=$i+1; $j<count($pool); $j++) {
                 $child = Algorithm::crossover($pool[$i], $pool[$j]);
+                $child->setId($depth.'_'.$id);
+                $id++;
 //                var_dump('CHILD');
 //                var_dump($child);
                 $newPopulation->addPerson($child);
@@ -66,6 +69,7 @@ class Algorithm
         $child->setEyesColor(Algorithm::getDominant($person1->getEyesColor(), $person2->getEyesColor()));
         $child->setHairColor(Algorithm::getDominant($person1->getHairColor(), $person2->getHairColor()));
         $child->setSkinColor(new SkinColor(floatval(($person1->getSkinColor()->getValue() + $person2->getSkinColor()->getValue()) / 2.0)));
+        $child->setParents([$person1->getId(), $person2->getId()]);
 
         return $child;
     }

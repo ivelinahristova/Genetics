@@ -24,6 +24,9 @@ require_once('algorithm.php');
 $timeStart = microtime(true);
 $fitValue = 3; //Solution fit - target is found
 $stopOnLevel = 4; //Stop algorithm if target is not found in this generation level
+$personId = 1;
+$generationLevel = 0;
+
 
 $target = new Person();
 $target->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
@@ -34,22 +37,28 @@ $p1 = new Person();
 $p1->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
 $p1->setHairColor(new HairColor(HairColor::MARK_BROWN));
 $p1->setSkinColor(new SkinColor(0.3));
+$p1->setId($generationLevel.'_'.$personId);
+$personId++;
 
 $p2 = new Person();
 $p2->setSkinColor(new SkinColor(0.6));
 
 $p2->setEyesColor(new EyesColor(EyesColor::MARK_GREEN));
 $p2->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+$p2->setId($generationLevel.'_'.$personId);
+$personId++;
 
 $p3 = new Person();
 $p3->setEyesColor(new EyesColor(EyesColor::MARK_HAZEL));
 $p3->setHairColor(new HairColor(HairColor::MARK_BLONDE));
 $p3->setSkinColor(new SkinColor(0.9));
+$p3->setId($generationLevel.'_'.$personId);
+$personId++;
 
 $population = new Population();
 $population->setPersons([$p1, $p2, $p3]);
 
-$generationLevel = 1;
+$generationLevel++;
 $solution = $population->getFittest($target);
 ?>
 
@@ -63,8 +72,8 @@ $solution = $population->getFittest($target);
         </tr>
         <?php foreach($population->getPersons() as $person): ?>
             <?php /** @var $person Person */ ?>
-            <tr>
-                <td>name</td>
+            <tr id="<?php echo $person->getId(); ?>">
+                <td><?php echo $person->getId(); ?></td>
                 <td>
                     <?php echo $person->htmlGenes(); ;
                     ?>
@@ -76,7 +85,7 @@ $solution = $population->getFittest($target);
 </section>
 
 <?php
-$population = Algorithm::evolve($population, $target);
+$population = Algorithm::evolve($population, $target, $generationLevel);
 $generationLevel++;
 $solution = $population->getFittest($target);
 ?>
@@ -89,22 +98,27 @@ $solution = $population->getFittest($target);
                 <th>Person</th>
                 <th>Genes</th>
                 <th>Fitness Value</th>
+                <th>Parents</th>
             </tr>
             <?php foreach($population->getPersons() as $person): ?>
                 <?php /** @var $person Person */ ?>
-                <tr>
-                    <td>name</td>
+                <tr id="<?php echo $person->getId(); ?>">
+                    <td><?php echo $person->getId(); ?></td>
                     <td>
                         <?php echo $person->htmlGenes(); ;
                         ?>
                     </td>
                     <td><?php echo $person->getFitness(); ?></td>
+                    <td>
+                        <a href="#<?php echo $person->getParents()[0]; ?>"><?php echo $person->getParents()[0]; ?></a>
+                        <a href="#<?php echo $person->getParents()[1]; ?>"><?php echo $person->getParents()[1]; ?></a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>
     </section>
     <?php
-    $population = Algorithm::evolve($population, $target);
+    $population = Algorithm::evolve($population, $target, $generationLevel);
     $generationLevel++;
     $solution = $population->getFittest($target);
     ?>
@@ -139,6 +153,7 @@ $solution = $population->getFittest($target);
         <th>Fitness Value</th>
         <th>Generations Count</th>
         <th>Working Time</th>
+        <th>Parents</th>
     </tr>
     <tr>
         <td>
@@ -147,6 +162,9 @@ $solution = $population->getFittest($target);
         <td><?php echo $solution->getFitness(); ?></td>
         <td><?php echo $generationLevel; ?></td>
         <td><?php echo microtime(true) - $timeStart; ?></td>
+        <td>
+            <a href="#<?php echo $solution->getParents()[0]; ?>"><?php echo $solution->getParents()[0]; ?></a>
+            <a href="#<?php echo $solution->getParents()[1]; ?>"><?php echo $solution->getParents()[1]; ?></a>
     </tr>
 </table>
 </section>
