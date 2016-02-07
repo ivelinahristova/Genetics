@@ -10,6 +10,8 @@ class EyesColor extends MarkGene
     public function __construct($mark)
     {
         $this->setName('Eyes Color');
+        $this->setTop('10px');
+        $this->setLeft('25%');
         parent::__construct($mark);
     }
 
@@ -25,5 +27,12 @@ class EyesColor extends MarkGene
         self::MARK_GREEN => 1,
         self::MARK_HAZEL => 2,
         self::MARK_BROWN => 3
+    ];
+
+    public $images = [
+        self::MARK_BLUE => 'blue.png',
+        self::MARK_GREEN => 'green.png',
+        self::MARK_HAZEL => 'hazel.png',
+        self::MARK_BROWN => 'brown.png'
     ];
 }

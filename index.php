@@ -96,6 +96,7 @@ $solution = $population->getFittest($target);
         <table>
             <tr>
                 <th>Person</th>
+                <th>Person</th>
                 <th>Genes</th>
                 <th>Fitness Value</th>
                 <th>Parents</th>
@@ -103,10 +104,14 @@ $solution = $population->getFittest($target);
             <?php foreach($population->getPersons() as $person): ?>
                 <?php /** @var $person Person */ ?>
                 <tr id="<?php echo $person->getId(); ?>">
+                    <td>
+                        <div class="picture">
+                            <?php echo $person->htmlLooking(); ?>
+                        </div>
+                    </td>
                     <td><?php echo $person->getId(); ?></td>
                     <td>
-                        <?php echo $person->htmlGenes(); ;
-                        ?>
+                        <?php echo $person->htmlGenes(); ?>
                     </td>
                     <td><?php echo $person->getFitness(); ?></td>
                     <td>

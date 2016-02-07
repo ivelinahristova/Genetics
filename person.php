@@ -146,4 +146,16 @@ class Person
         return $html;
     }
 
+    public function htmlLooking()
+    {
+        $styleEyes = sprintf('position: absolute; top: %s; bottom: %s; left: %s; right: %s; width: 50px;',
+            $this->getEyesColor()->getTop(), $this->getEyesColor()->getBottom(),
+            $this->getEyesColor()->getLeft(), $this->getEyesColor()->getRight());
+        $htmlEyes = sprintf('<img src="styles/images/%s" style="%s"/>', $this->getEyesColor()->getImage(), $styleEyes);
+
+        $html = $htmlEyes;
+
+        return $html;
+    }
+
 }

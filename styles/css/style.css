@@ -24,3 +24,10 @@ section {
     top: 150px;
 
 }
+
+.picture {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #999;
+}
