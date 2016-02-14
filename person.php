@@ -165,12 +165,19 @@ class Person
 
     public function htmlLooking()
     {
-        $styleEyes = sprintf('position: absolute; top: %s; bottom: %s; left: %s; right: %s; width: 50px;',
+        $face = sprintf('<div class="face" style=" background-color: rgba(36,13,5, %s)">', $this->getSkinColor()->getValue());
+//        $face .= '<img src="styles/images/nose.png" style="position: absolute; top: 37px; left: 39px; width: 13px; " />';
+        $styleEyes = sprintf('position: absolute; top: %s; bottom: %s; left: %s; right: %s; width: 35px;',
             $this->getEyesColor()->getTop(), $this->getEyesColor()->getBottom(),
             $this->getEyesColor()->getLeft(), $this->getEyesColor()->getRight());
         $htmlEyes = sprintf('<img src="styles/images/%s" style="%s"/>', $this->getEyesColor()->getImage(), $styleEyes);
 
-        $html = $htmlEyes;
+        $styleHair = sprintf('position: absolute; top: %s; bottom: %s; left: %s; right: %s; width: 80px;',
+            $this->getHairColor()->getTop(), $this->getHairColor()->getBottom(),
+            $this->getHairColor()->getLeft(), $this->getHairColor()->getRight());
+        $htmlHair = sprintf('<img src="styles/images/%s" style="%s"/>', $this->getHairColor()->getImage(), $styleHair);
+
+        $html = $face.$htmlHair.$htmlEyes.'</div>';
 
         return $html;
     }

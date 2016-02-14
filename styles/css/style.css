@@ -31,3 +31,12 @@ section {
     height: 100px;
     border: 2px solid #999;
 }
+
+.face {
+    height: 70%;
+    border-radius: 30px;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}

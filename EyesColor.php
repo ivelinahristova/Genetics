@@ -10,8 +10,8 @@ class EyesColor extends MarkGene
     public function __construct($mark)
     {
         $this->setName('Eyes Color');
-        $this->setTop('10px');
-        $this->setLeft('25%');
+        $this->setTop('20px');
+        $this->setLeft('30%');
         parent::__construct($mark);
     }
 

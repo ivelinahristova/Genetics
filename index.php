@@ -29,9 +29,9 @@ $generationLevel = 0;
 
 
 $target = new Person();
-$target->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
+$target->setEyesColor(new EyesColor(EyesColor::MARK_HAZEL));
 $target->setHairColor(new HairColor(HairColor::MARK_BROWN));
-$target->setSkinColor(new SkinColor(0.6));
+$target->setSkinColor(new SkinColor(0.5));
 
 $p1 = new Person();
 $p1->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
@@ -69,8 +69,22 @@ $p5->setSkinColor(new SkinColor(0.5));
 $p5->setId($generationLevel.'_'.$personId);
 $personId++;
 
+$p6 = new Person();
+$p6->setEyesColor(new EyesColor(EyesColor::MARK_BLUE));
+$p6->setHairColor(new HairColor(HairColor::MARK_BLONDE));
+$p6->setSkinColor(new SkinColor(0.5));
+$p6->setId($generationLevel.'_'.$personId);
+$personId++;
+
+/*$p7 = new Person();
+$p7->setEyesColor(new EyesColor(EyesColor::MARK_GREEN));
+$p7->setHairColor(new HairColor(HairColor::MARK_BLACK));
+$p7->setSkinColor(new SkinColor(0.2));
+$p7->setId($generationLevel.'_'.$personId);
+$personId++;*/
+
 $population = new Population();
-$population->setPersons([$p1, $p2, $p3, $p4, $p5]);
+$population->setPersons([$p1, $p2, $p3, $p4, $p5, $p6]);
 
 $generationLevel++;
 $solution = $population->getFittest($target);
@@ -80,13 +94,20 @@ $solution = $population->getFittest($target);
     <h1>Initial Population</h1>
     <table>
         <tr>
+            <th>View</th>
             <th>Person</th>
             <th>Genes</th>
             <th>Fitness Value</th>
         </tr>
         <?php foreach($population->getPersons() as $person): ?>
             <?php /** @var $person Person */ ?>
+
             <tr id="<?php echo $person->getId(); ?>">
+                <td>
+                    <div class="picture">
+                        <?php echo $person->htmlLooking(); ?>
+                    </div>
+                </td>
                 <td><?php echo $person->getId(); ?></td>
                 <td>
                     <?php echo $person->htmlGenes(); ;
@@ -109,7 +130,7 @@ $solution = $population->getFittest($target);
         <h1>Population <?php echo $generationLevel; ?></h1>
         <table>
             <tr>
-                <th>Person</th>
+                <th>View</th>
                 <th>Person</th>
                 <th>Genes</th>
                 <th>Fitness Value</th>
@@ -155,10 +176,16 @@ $solution = $population->getFittest($target);
 <h1>Target</h1>
 <table>
     <tr>
+        <th>View</th>
         <th>Desirable Genes</th>
         <th>Desirable Fitness Value</th>
     </tr>
     <tr>
+        <td>
+            <div class="picture">
+                <?php echo $target->htmlLooking(); ?>
+            </div>
+        </td>
         <td>
             <?php echo $target->htmlGenes(); ?>
         </td>
@@ -172,6 +199,7 @@ $solution = $population->getFittest($target);
 <h1>Solution</h1>
 <table>
     <tr>
+        <th>View</th>
         <th>Genes</th>
         <th>Fitness Value</th>
         <th>Generations Count</th>
@@ -179,6 +207,11 @@ $solution = $population->getFittest($target);
         <th>Parents</th>
     </tr>
     <tr>
+        <td>
+            <div class="picture">
+                <?php echo $solution->htmlLooking(); ?>
+            </div>
+        </td>
         <td>
             <?php echo $solution->htmlGenes(); ?>
         </td>
